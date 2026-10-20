@@ -1,0 +1,2 @@
+"use client";
+export default function Error({reset}:{error:Error&{digest?:string};reset:()=>void}){return <main className="flex min-h-screen flex-col items-center justify-center gap-5 p-6"><h1 className="text-2xl font-bold">Something went wrong</h1><p className="text-slate-400">The dashboard could not be displayed.</p><button onClick={reset} className="rounded-xl bg-cyan px-5 py-3 font-semibold text-ink">Try again</button></main>}
