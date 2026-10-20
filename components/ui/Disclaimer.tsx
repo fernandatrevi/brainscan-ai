@@ -1,0 +1,2 @@
+import { ShieldAlert } from "lucide-react";
+export function Disclaimer(){return <div role="note" className="flex gap-3 rounded-xl border border-amber-400/20 bg-amber-300/5 p-4 text-sm text-amber-100/85"><ShieldAlert className="h-5 w-5 shrink-0"/><p><strong>Educational demonstration.</strong> All cases, labels, confidence values and benchmark metrics shown here are illustrative mock data. No medical image is analyzed and no clinical diagnosis is provided.</p></div>}
