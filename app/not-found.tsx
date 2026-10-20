@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <main className="flex min-h-screen flex-col items-center justify-center gap-5 p-6 text-center"><p className="text-xs uppercase tracking-widest text-cyan">404</p><h1 className="text-3xl font-bold">Page not found</h1><p className="text-slate-400">This route does not exist in the BrainScan AI lab.</p><Link className="rounded-xl bg-cyan px-5 py-3 font-semibold text-ink" href="/">Return to dashboard</Link></main>}
