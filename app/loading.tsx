@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="flex min-h-screen items-center justify-center"><div className="animate-pulse text-lg font-semibold tracking-widest text-cyan">LOADING BRAINSCAN AI…</div></main>}
