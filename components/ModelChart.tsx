@@ -1,0 +1,4 @@
+"use client";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { exampleMetrics } from "@/lib/demo-data";
+export function ModelChart(){return <div className="h-72 w-full" role="img" aria-label="Illustrative comparison of accuracy, recall, and F1 across three models"><ResponsiveContainer width="100%" height="100%"><BarChart data={exampleMetrics} margin={{top:12,right:8,left:-20,bottom:0}}><CartesianGrid stroke="#25314a" strokeDasharray="3 5" vertical={false}/><XAxis dataKey="name" stroke="#9caac0" tick={{fontSize:11}}/><YAxis domain={[0,100]} stroke="#9caac0" tick={{fontSize:11}}/><Tooltip contentStyle={{background:"#111b33",border:"1px solid #304060",borderRadius:12}}/><Bar dataKey="accuracy" fill="#61e6ff" radius={[4,4,0,0]}/><Bar dataKey="recall" fill="#a78bfa" radius={[4,4,0,0]}/><Bar dataKey="f1" fill="#65d6bc" radius={[4,4,0,0]}/></BarChart></ResponsiveContainer></div>}
