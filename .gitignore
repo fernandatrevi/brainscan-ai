@@ -4,3 +4,8 @@ node_modules/
 !.env.example
 *.tsbuildinfo
 .DS_Store
+.venv/
+__pycache__/
+*.pyc
+dataset/
+ml/artifacts/
