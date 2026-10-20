@@ -1,1 +1,20 @@
 
+# BrainScan AI
+
+Interactive medical imaging and machine learning dashboard.
+
+## Project goals
+- Build an interactive web application.
+- Explore brain MRI datasets.
+- Compare machine learning models.
+- Visualize predictions and model performance.
+- Deploy the website using Vercel.
+
+## Technologies
+Next.js, TypeScript, Tailwind CSS, Python, and scikit-learn.
+
+## Status
+Under development.
+
+Educational project only. Not intended for medical diagnosis.
+
