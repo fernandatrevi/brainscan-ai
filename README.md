@@ -2,7 +2,7 @@
 
 **Interactive machine-learning laboratory for exploring medical-imaging classification concepts.**
 
-[View the source code](https://github.com/fernandatrevi/brainscan-ai) · [Deployment instructions](docs/deployment.md) · [Model evaluation plan](docs/model-evaluation.md)
+[**Open web demo**](https://brainscan-ai-one.vercel.app/) · [View the source code](https://github.com/fernandatrevi/brainscan-ai) · [Deployment instructions](docs/deployment.md) · [Model evaluation plan](docs/model-evaluation.md)
 
 > **Educational prototype — not a medical device.** The live dashboard currently uses **synthetic signal samples, preconfigured confidence values, and illustrative model metrics**. It does **not** analyze MRI images, run trained predictions, or provide diagnoses.
 
@@ -105,7 +105,7 @@ The website is configured for **Vercel**. To deploy your own copy:
 3. Select **Deploy**.
 4. Verify the dashboard interactions at your assigned `*.vercel.app` address.
 
-See [docs/deployment.md](docs/deployment.md). The precise production URL is intentionally not listed here because it has not been confirmed.
+See [docs/deployment.md](docs/deployment.md). Vercel lists the project at [https://brainscan-ai-one.vercel.app/](https://brainscan-ai-one.vercel.app/) (as shown in the owner's dashboard). Its public loading and interactive functions have not been independently verified.
 
 ## Roadmap
 
