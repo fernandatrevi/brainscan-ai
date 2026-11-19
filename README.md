@@ -128,3 +128,7 @@ See [docs/privacy.md](docs/privacy.md).
 ## Author
 
 Developed in the [fernandatrevi](https://github.com/fernandatrevi) GitHub portfolio.
+
+## Additional project documentation
+
+- [Release readiness checklist](docs/release-readiness-checklist.md) — verification steps, limitations, and responsible-use considerations.
