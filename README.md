@@ -78,7 +78,7 @@ python ml/train.py --data-dir dataset --output-dir ml/artifacts
 
 On Windows, activate with `.venv\Scripts\activate` instead.
 
-The script produces trained model files and `metrics.json` containing accuracy, per-class evaluation, and confusion matrices. **No training has been executed as part of this README update, and no measured results are claimed here.** These artifacts are not connected to the deployed website.
+The script produces trained model files and `metrics.json` containing accuracy, per-class evaluation, and confusion matrices. **No training results on a real medical-image dataset have been verified or published; no measured performance is claimed here. The pipeline supports patient-separated holdout evaluation via `--groups-csv`, with accuracy, balanced accuracy, macro F1 and per-class metrics. See [evaluation protocol](docs/ml-evaluation.md).** These artifacts are not connected to the deployed website.
 
 **Evaluation caution:** the example script uses an image-level stratified split. If a dataset contains multiple images from the same patient, a **patient-level/group split** is required to prevent leakage. Dataset licenses, class imbalance, data quality, calibration, and external generalization must be reviewed before reporting meaningful performance.
 
