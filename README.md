@@ -2,7 +2,7 @@
 
 **Interactive machine-learning laboratory for exploring medical-imaging classification concepts.**
 
-[**Open web demo**](https://brainscan-ai-one.vercel.app/) · [View the source code](https://github.com/fernandatrevi/brainscan-ai) · [Deployment instructions](docs/deployment.md) · [Model evaluation plan](docs/model-evaluation.md)
+[**Open web demo**](https://brainscan-ai-one.vercel.app/) · [**Engineering case study**](docs/ENGINEERING_CASE_STUDY.md) · [Evaluation protocol](docs/ml-evaluation.md) · [Deployment instructions](docs/deployment.md)
 
 > **Educational prototype — not a medical device.** The live dashboard currently uses **synthetic signal samples, preconfigured confidence values, and illustrative model metrics**. It does **not** analyze MRI images, run trained predictions, or provide diagnoses.
 
