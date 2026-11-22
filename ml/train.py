@@ -69,7 +69,7 @@ def select_split(y, paths, test_size, seed, groups_csv=None):
             raise ValueError("Groups CSV requires path and patient_id columns.")
         mapping = {}
         for row in reader:
-            path, patient = row["path"].strip().replace("\\\\", "/"), row["patient_id"].strip()
+            path, patient = row["path"].strip().replace("\\", "/"), row["patient_id"].strip()
             if not path or not patient or path in mapping:
                 raise ValueError("Groups CSV contains an empty or duplicate path/patient_id.")
             mapping[path] = patient
@@ -112,7 +112,7 @@ def main():
     x_train, x_test, y_train, y_test = x[train], x[test], y[train], y[test]
     models = {
         "svm": make_pipeline(StandardScaler(), SVC(kernel="rbf", probability=True, random_state=args.seed)),
-        "random_forest": RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1),
+        "random_forest": RandomForestClassifier(n_estimators=300, random_state=args.seed, n_jobs=-1),
     }
     args.output_dir.mkdir(parents=True, exist_ok=True)
     summary = {"classes": classes, "n_train": len(y_train), "n_test": len(y_test),
