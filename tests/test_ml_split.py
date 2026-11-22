@@ -38,7 +38,7 @@ class SplitTests(unittest.TestCase):
     def test_missing_patient_id_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             manifest = Path(tmp) / "groups.csv"
-            manifest.write_text("path,patient_id\\n" + self.paths[0] + ",p1\\n", encoding="utf-8")
+            manifest.write_text("path,patient_id\n" + self.paths[0] + ",p1\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "Missing patient IDs"):
                 select_split(self.y, self.paths, 0.2, 42, manifest)
 
