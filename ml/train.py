@@ -23,7 +23,11 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-from ml.quality import audit_images
+try:
+    from ml.quality import audit_images
+except ModuleNotFoundError:
+    # Support executing "python ml/train.py" as well as "python -m ml.train".
+    from quality import audit_images
 
 EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 
