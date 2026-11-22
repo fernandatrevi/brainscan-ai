@@ -16,7 +16,7 @@ The goal is to practice frontend development, data preparation, supervised class
 
 - **Interactive workspace:** switch between three synthetic samples and inspect an illustrative signal chart.
 - **Mock result:** show or hide a predefined example label and confidence bar. **These are not predictions.**
-- **Model explorer:** compare *illustrative*, not measured, accuracy, recall, and F1 scores for SVM, Random Forest, and an ensemble.
+- **Model explorer:** explains the implemented reference classifier, SVM and Random Forest pipeline, evaluation metrics, and the requirements for responsible assessment—without presenting fabricated model scores.
 - **Local image picker:** choose a file to display its name. The file is **not uploaded, stored, or analyzed**.
 - **Responsive interface:** dark dashboard with navigation, visualizations, and mobile-friendly layout.
 
@@ -53,7 +53,7 @@ npm run start
 
 The web demo does not require API keys or environment variables.
 
-## Train classical ML baselines (optional)
+## Reproducible ML experimentation (Python)
 
 The repository also contains `ml/train.py`, a **separate** Python script for training a support vector machine (SVM) and a Random Forest using HOG features from labeled images.
 
@@ -78,11 +78,11 @@ python ml/train.py --data-dir dataset --output-dir ml/artifacts
 
 On Windows, activate with `.venv\Scripts\activate` instead.
 
-The script produces trained model files and `metrics.json` containing accuracy, per-class evaluation, and confusion matrices. **No training results on a real medical-image dataset have been verified or published; no measured performance is claimed here. The pipeline supports patient-separated holdout evaluation via `--groups-csv`, with accuracy, balanced accuracy, macro F1 and per-class metrics. See [evaluation protocol](docs/ml-evaluation.md).** These artifacts are not connected to the deployed website.
+The pipeline compares a **majority-class reference**, **HOG + SVM**, and **HOG + Random Forest** on the same held-out partition. It records accuracy, balanced accuracy, macro F1, per-class statistics, confusion matrices, class distributions, exact-file duplicate audits, and experiment settings. The test suite also runs an end-to-end training check on **synthetic, non-medical images**.\n\n**No independently verified performance results on medical images are published, and no clinical accuracy is claimed.** The models are not connected to the public website. See the [evaluation protocol](docs/ml-evaluation.md).
 
-**Evaluation caution:** the example script uses an image-level stratified split. If a dataset contains multiple images from the same patient, a **patient-level/group split** is required to prevent leakage. Dataset licenses, class imbalance, data quality, calibration, and external generalization must be reviewed before reporting meaningful performance.
+**Evaluation caution:** the default image-level stratified split cannot establish patient-level separation. When patient identifiers are available, provide a pseudonymous CSV with `--groups-csv` to enforce a patient-separated split. Byte-identical duplicates across train/test or with conflicting labels cause training to stop, but this does **not** detect near duplicates or multiple scans of the same patient. Dataset licenses, class balance, calibration, and independent external generalization remain open questions.
 
-For additional detail, read [ml/README.md](ml/README.md) and [docs/model-evaluation.md](docs/model-evaluation.md).
+For additional detail, read [ml/README.md](ml/README.md), [docs/ml-evaluation.md](docs/ml-evaluation.md), and [docs/model-evaluation.md](docs/model-evaluation.md). Run tests with `python -m unittest discover -s tests -p 'test_*.py' -v`.
 
 ## Project structure
 
@@ -114,8 +114,8 @@ See [docs/deployment.md](docs/deployment.md). Vercel lists the project at [https
 - [x] Show illustrative model comparisons and a local-only file picker.
 - [x] Add a separate SVM/Random Forest training script.
 - [ ] Select and audit a public, appropriately licensed imaging dataset.
-- [ ] Train and evaluate models using leakage-safe data splits.
-- [ ] Replace illustrative metrics with documented experimental results.
+- [x] Add group-aware splitting, exact-duplicate checks, a simple baseline, measured-metric export, and synthetic integration tests.\n- [ ] Obtain suitable patient identifiers and run independently reviewed, patient-separated medical-image evaluation.
+- [x] Remove fabricated benchmark percentages from the dashboard.\n- [ ] Publish independently verified experimental measurements with documented dataset provenance.
 - [ ] Evaluate deployment options for secure, validated inference.
 - [ ] Integrate real predictions only after testing, privacy review, and clear limitations.
 
