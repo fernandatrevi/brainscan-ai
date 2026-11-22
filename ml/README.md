@@ -29,9 +29,11 @@ Windows activation: `.venv\\Scripts\\activate`.
 
 Outputs: `metrics.json`, `svm.joblib`, and `random_forest.joblib`. Results are **not automatically connected to the Vercel frontend**.
 
+For the patient-separated evaluation protocol and metric definitions, see [ML evaluation guide](../docs/ml-evaluation.md).
+
 ## Critical limitations
 
-- The script uses an **image-level stratified split**, which is inappropriate when multiple images belong to one patient. Use a patient/group-level split and an independent test set before making performance claims.
+- By default the script uses an **image-level stratified split**. For multiple images per patient, pass `--groups-csv groups.csv` for a patient-separated holdout. An independent external test set is still required for generalization claims.
 - HOG is a simple baseline, not a validated MRI tumor detector.
 - Dataset labels, licenses, image preprocessing, class balance, and domain shift require separate review.
 - Do not load untrusted `.joblib` files; serialized models can execute code.
