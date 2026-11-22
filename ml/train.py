@@ -15,12 +15,15 @@ import joblib
 import numpy as np
 from PIL import Image
 from skimage.feature import hog
+from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score, classification_report, confusion_matrix
 from sklearn.model_selection import GroupShuffleSplit, train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+
+from ml.quality import audit_images
 
 EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 
@@ -110,7 +113,9 @@ def main():
     except ValueError as exc:
         parser.error(f"Dataset split invalid: {exc}")
     x_train, x_test, y_train, y_test = x[train], x[test], y[train], y[test]
+    audit = audit_images(args.data_dir, paths, y, train, test)
     models = {
+        "majority_class_baseline": DummyClassifier(strategy="most_frequent"),
         "svm": make_pipeline(StandardScaler(), SVC(kernel="rbf", probability=True, random_state=args.seed)),
         "random_forest": RandomForestClassifier(n_estimators=300, random_state=args.seed, n_jobs=-1),
     }
@@ -118,7 +123,11 @@ def main():
     summary = {"classes": classes, "n_train": len(y_train), "n_test": len(y_test),
                "seed": args.seed, "test_size": args.test_size, "split_type": split_type,
                "dataset_file_count": len(paths),
-               "dataset_path_fingerprint": hashlib.sha256("\\n".join(sorted(paths)).encode()).hexdigest(),
+               "class_counts": {name: int(np.sum(y == i)) for i, name in enumerate(classes)},
+               "train_class_counts": {name: int(np.sum(y_train == i)) for i, name in enumerate(classes)},
+               "test_class_counts": {name: int(np.sum(y_test == i)) for i, name in enumerate(classes)},
+               "data_integrity": audit,
+               "dataset_path_fingerprint": hashlib.sha256("\n".join(sorted(paths)).encode()).hexdigest(),
                "warning": "Educational baseline only; no clinical validation. "
                           + ("Image-level splits can leak patient information." if split_type == "stratified_image" else "Patient-separated holdout; independent external validation is still needed."),
                "models": {}}
@@ -135,7 +144,8 @@ def main():
             "confusion_matrix": confusion_matrix(
                 y_test, pred, labels=list(range(len(classes)))).tolist(),
         }
-        joblib.dump({"model": model, "classes": classes}, args.output_dir / f"{name}.joblib")
+        if name != "majority_class_baseline":
+            joblib.dump({"model": model, "classes": classes}, args.output_dir / f"{name}.joblib")
     (args.output_dir / "metrics.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary["models"], indent=2))
